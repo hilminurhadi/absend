@@ -63,6 +63,26 @@ return [
             ]) : [],
         ],
 
+        'mysql_ftm' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL_FTM'),
+            'host' => env('DB_HOST_FTM', '127.0.0.1'),
+            'port' => env('DB_PORT_FTM', '3306'),
+            'database' => env('DB_DATABASE_FTM', 'forge'),
+            'username' => env('DB_USERNAME_FTM', 'forge'),
+            'password' => env('DB_PASSWORD_FTM', ''),
+            'unix_socket' => env('DB_SOCKET_FTM', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
