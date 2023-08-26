@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/version_name', [AbonController::class, 'version_name'])->name('version_name');
 Route::get('/isUseDeviceId/{deviceid}', [AbonController::class, 'isUseDeviceId'])->name('isUseDeviceId');
 Route::post('/login', [AbonController::class, 'login'])->name('login');
-Route::post('/insertDeviceId/', [AbonController::class, 'insertDeviceId'])->name('insertDeviceId');
+Route::post('/insertDeviceId//', [AbonController::class, 'insertDeviceId'])->name('insertDeviceId');
 Route::get('/checkConnection', [AbonController::class, 'checkConnection'])->name('checkConnection');
 Route::post('/insertAbsenNew', [AbonController::class, 'insertAbsenNew'])->name('insertAbsenNew');
 
