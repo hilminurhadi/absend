@@ -91,6 +91,23 @@ class AbonController extends Controller
         echo $login;
     }
 
+    function DeviceID($nip, $deviceid)
+    {
+        $data = [
+            'nik' => $nip,
+            'device_id' => $deviceid,
+            'start' => date('Y-m-d'),
+        ];
+        return EmpDevice::create($data);
+    }
+
+    public function insertDeviceId(Request $request){
+        $deviceid = $request->device_id;
+        $nik = $request->nik;
+        $hasil = $this->DeviceID($nik,$deviceid);
+        echo $hasil;
+    }
+
     public function checkConnection(){
 		echo "terkoneksi";
 	}
