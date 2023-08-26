@@ -94,6 +94,7 @@ class AbonController extends Controller
     function DeviceID($nip, $deviceid)
     {
         $data = [
+            'id' => 0,
             'nik' => $nip,
             'device_id' => $deviceid,
             'start' => date('Y-m-d'),
