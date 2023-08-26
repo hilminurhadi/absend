@@ -19,7 +19,7 @@ Route::get('/version_name', [AbonController::class, 'version_name'])->name('vers
 Route::get('/isUseDeviceId/{deviceid}', [AbonController::class, 'isUseDeviceId'])->name('isUseDeviceId');
 Route::post('/login', [AbonController::class, 'login'])->name('login');
 Route::post('/insertDeviceId', [AbonController::class, 'insertDeviceId'])->name('insertDeviceId');
-Route::get('/checkConnection', [AbonController::class, 'checkConnection'])->name('checkConnection');
+Route::post('/checkConnection', [AbonController::class, 'checkConnection'])->name('checkConnection');
 Route::post('/insertAbsenNew', [AbonController::class, 'insertAbsenNew'])->name('insertAbsenNew');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
