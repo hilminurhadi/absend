@@ -16,9 +16,9 @@ class AbonController extends Controller
     {
         $package = PackageException::query()->get();
         $data = [
-            'version_name' => '1.3',
+            'version_name' => '1.4',
             'package_exception' => $package->toArray(),
-            'version_code' => '3',
+            'version_code' => '4',
         ];
         echo json_encode($data);
     }
