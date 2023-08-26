@@ -36,7 +36,6 @@ class AbonController extends Controller
     public function getPinAndEmpIdPegawai($nik)
     {
         $query = EmpDevice::select(['device_id'])->where([['nik', $nik], ['end', null]])->get();
-        // $array = [][];
         if ($query->count() == 1) {
             $arrayQuery = $query->toArray();
             $array[0]['device_id'] = $arrayQuery[0]['device_id'];
@@ -127,27 +126,35 @@ class AbonController extends Controller
         $query = FtmHoliday::where('holiday_date', $date)->get();
         if ($query->count() > 0) {
             $result_array = $query->toArray();
-            return array('status'=>'false','sebab'=>'Hari ini adalah :'.$result_array[0]['holiday_note']);
+            return [
+                'status' => 'false',
+                'sebab' => 'Hari ini adalah :'.$result_array[0]['holiday_note'],
+            ];
         }
         else{
-            return array('status'=>'true');
+            return ['status' => 'true'];
         }	
     }
 
     public function checkAbsenExist($pin,$io_mode,$date)
-	    {
-		    date_default_timezone_set("Asia/Jakarta");	
+	    {	
 	    	if (date('w') == '0' || date('w') == '6') {
-	    		return array('status'=>'false','sebab'=>'Hari ini hari libur.');
+	    		return [
+                    'status' => 'false',
+                    'sebab' => 'Hari ini hari libur.'
+                ];
 	    	}else{
 	    		$arrayLibur = $this->checkHoliday($date);
 	    		if ($arrayLibur['status'] == 'true') {
                     $query = FtmAttLog::where([['pin', $pin], ['io_mode', $io_mode]])->whereDate('scan_date', $date)->get();
 			    	if ($query->count() > 0) {
 			    		$array = $query->toArray();
-			    		return array('status'=>'false','sebab'=>'Anda telah Absen pada '.$array[0]['scan_date'].'.');
+			    		return [
+                            'status' => 'false',
+                            'sebab' => 'Anda telah Absen pada '.$array[0]['scan_date'].'.'
+                        ];
 			    	}else{
-			    		return array('status'=>'true');
+			    		return ['status' => 'true'];
 			    	}	
 		    	}else{
 		    		return $arrayLibur;
@@ -163,7 +170,6 @@ class AbonController extends Controller
 	}
 
     public function insertAbsenNew(Request $request){
-        date_default_timezone_set("Asia/Jakarta");
         $nik = $request->nik;
         $deviceid = $request->device_id;
         $pin = $request->pin;
@@ -183,26 +189,26 @@ class AbonController extends Controller
             $arrayHasil = $this->checkAbsenExist($pin,$io_mode,date('Y-m-d'));
             if ($arrayHasil['status'] != 'false') {
                 if ($token == $hasil) {
-                    $data = array(
-                                'sn' => 'AND'.$deviceid,
-                                'scan_date' => $datetime,
-                                'pin' => $pin,
-                                'verify_mode' => $verify_mode,
-                                'io_mode' => $io_mode,
-                                'work_code' => $work_code,
-                                'ex_id' => $ex_id,
-                                'flag' => $flag,
-                                'rowguid' => $rowguid,
-                                'io_mode_update' => $io_update
-                            );
+                    $data = [
+                        'sn' => 'AND'.$deviceid,
+                        'scan_date' => $datetime,
+                        'pin' => $pin,
+                        'verify_mode' => $verify_mode,
+                        'io_mode' => $io_mode,
+                        'work_code' => $work_code,
+                        'ex_id' => $ex_id,
+                        'flag' => $flag,
+                        'rowguid' => $rowguid,
+                        'io_mode_update' => $io_update
+                    ];
                     $result = FtmAttLog::create($data);
                     if ($result > 0) {
-                        echo "[".json_encode(array('status'=>'true'))."]";
+                        echo "[".json_encode(['status' => 'true'])."]";
                     }else{
-                        echo "[".json_encode(array('status'=>'false','sebab'=>'gagal melakukan absen.'))."]";
+                        echo "[".json_encode(['status' => 'false','sebab' => 'gagal melakukan absen.'])."]";
                     }
                 }else{
-                    echo "[".json_encode(array('status'=>'false','sebab'=>'Invalid Token.'))."]";
+                    echo "[".json_encode(['status' => 'false','sebab' => 'Invalid Token.'])."]";
                 }
             }else{
                 echo "[".json_encode($arrayHasil)."]";
