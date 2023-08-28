@@ -114,8 +114,8 @@ class AbonController extends Controller
 
     public function cekToken($nik, $token)
     {
-        $query = Token::select('token')->where('nik', $nik)->orderBy('date', 'desc')->limit(1, 0)->first();
-        if ($query->count() == 1) {
+        $query = Token::where('nik', $nik)->orderBy('date', 'desc')->first();
+        if ($query) {
             return $query->token;
         } else {
             return false;
