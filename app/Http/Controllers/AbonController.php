@@ -205,7 +205,7 @@ class AbonController extends Controller
                         'io_mode_update' => $io_update
                     ];
                     $result = FtmAttLog::create($data);
-                    if ($result > 0) {
+                    if ($result) {
                         echo "[".json_encode(['status' => 'true'])."]";
                     }else{
                         echo "[".json_encode(['status' => 'false','sebab' => 'gagal melakukan absen.'])."]";
