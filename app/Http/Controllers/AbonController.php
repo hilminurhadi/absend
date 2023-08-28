@@ -181,6 +181,9 @@ class AbonController extends Controller
         $flag = $request->flag;
         $rowguid = $request->rowguid;
         $io_update = $request->io_update;
+            if($io_update == null){
+                $io_update = 0;
+            }
         $token = $request->token;
         $hasil = $this->cekToken($nik,$token);
         if ($this->isEmpty($token) || $this->isEmpty($nik)) {
